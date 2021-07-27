@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "610716117287",
+    "project_id": "reservacancha-2021",
+    "storage_bucket": "reservacancha-2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610716117287:android:c21d18fca0972197b6e102",
+        "android_client_info": {
+          "package_name": "com.equipo13.reservacancha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610716117287-emiqnihdko8lt896g17om412keo72emj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpM0Si2lxv28oJqA0amRMOUCH5-KMuLak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610716117287-emiqnihdko8lt896g17om412keo72emj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
