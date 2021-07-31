@@ -16,9 +16,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val context = this
-
-
         // Get logo from the web
         val logoView = loginLogo
         Glide.with(this).load("https://i.dlpng.com/static/png/6603159_preview.png")
@@ -39,11 +36,12 @@ class LoginActivity : AppCompatActivity() {
         val email = loginEmail.text
         val password = loginPassword.text
 
+
         loginButton.setOnClickListener{
             if (email.isNotEmpty() && password.isNotEmpty()){
-                FirebaseAuth.getInstance().
-                    signInWithEmailAndPassword(email.toString(), password.toString()).
-                        addOnCompleteListener {
+                FirebaseAuth.getInstance()
+                    .signInWithEmailAndPassword(email.toString(), password.toString())
+                    .addOnCompleteListener {
                             if (it.isSuccessful) {
                                 showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
                             } else {

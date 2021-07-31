@@ -8,6 +8,7 @@
     <string name="button_register">Register</string>
     <string name="button_logout">Logout</string>
     <string name="name">Name</string>
+    <string name="phone_number">(+code) Phone number</string>
 
 
 </resources>

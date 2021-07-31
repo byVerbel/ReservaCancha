@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.ColorMatrixColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -40,18 +41,27 @@ class RegisterActivity : AppCompatActivity() {
         val password = registerPassword.text
         val phone = registerPhoneNumber.text
 
+        fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
         registerButton.setOnClickListener{
             if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && phone.isNotEmpty()){
-                FirebaseAuth.getInstance().
-                    createUserWithEmailAndPassword(email.toString(),
-                        password.toString()).addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
-                            } else {
-                                showToast("Registro Inválido", Toast.LENGTH_LONG)
+                if (email.toString().isValidEmail()){
+
+                    FirebaseAuth.getInstance()
+                        .createUserWithEmailAndPassword(email.toString(),password.toString())
+                        .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
+                                } else {
+                                    showToast("Registro Inválido", Toast.LENGTH_LONG)
+                                }
                             }
-                        }
+                } else {
+
+                    showToast("Email inválido", Toast.LENGTH_LONG)
+                }
             } else {
+
                 showToast("Faltan campos por llenar")
             }
         }
