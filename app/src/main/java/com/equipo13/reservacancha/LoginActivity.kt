@@ -53,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val time = Toast.LENGTH_SHORT
         registerActivityButton.setOnClickListener{showRegister()}
 
     }
@@ -80,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showRegister() {
-        val registerIntent: Intent = Intent(this, RegisterActivity::class.java)
+        val registerIntent = Intent(this, RegisterActivity::class.java)
         startActivity(registerIntent)
     }
 }
