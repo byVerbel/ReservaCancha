@@ -4,6 +4,8 @@
 
 ### Images ###
 *.jpg
+*.png
+*.svg
 
 ### Android ###
 # Built application files
