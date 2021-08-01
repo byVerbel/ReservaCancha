@@ -2,6 +2,7 @@ package com.equipo13.reservacancha
 
 import android.content.Intent
 import android.graphics.ColorMatrixColorFilter
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -17,7 +18,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         // Get logo from URL
-        val logoView = registerLogo
+        /*val logoView = registerLogo
         Glide.with(this)
             .load("https://lh3.googleusercontent.com/proxy/-zGMMdo5bKj9KhRfLYH-zya9hn2d_keweiNgxjL4La_lewQNKoG3IBS_5fuKqxq-EI4yH9covkcLUtL_UpBWxACU6db9pjF72bWpES7B4CIxoyGFNGIVNuJlhCMKCWDSJbNQds0W8B9ikrZPUDKI3zij9KulN5v6YarhMoxP")
             .into(logoView)
@@ -27,7 +28,9 @@ class RegisterActivity : AppCompatActivity() {
             0f,     0f, -1.0f,    0f, 255f, // blue
             0f,     0f,     0f, 1.0f,   0f)
 
-        logoView.colorFilter = ColorMatrixColorFilter(negative)
+        logoView.colorFilter = ColorMatrixColorFilter(negative)*/
+
+        loadLogo()
 
         register()
     }
@@ -66,6 +69,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Show Alerts
     /*private fun showAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
@@ -87,4 +91,7 @@ class RegisterActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
+    private fun loadLogo(){
+        (registerLogo.drawable as AnimationDrawable).start()
+    }
 }

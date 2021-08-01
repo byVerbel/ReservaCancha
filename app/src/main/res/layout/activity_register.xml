@@ -15,7 +15,8 @@
         android:contentDescription="@string/register_logo_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_animation_register" />
 
     <EditText
         android:id="@+id/registerName"
