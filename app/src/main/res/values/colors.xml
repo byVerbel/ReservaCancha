@@ -5,8 +5,12 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+    <!-- MyColors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="login_bg">#FF002916</color>
-    <color name="register_bg">#FF0D2405</color>
+    <color name="dark_blue">#FF1A1529</color>
+    <color name="dark_gray">#FF282929</color>
+    <color name="dark_cyan">#FF002929</color>
+    <color name="red">#FFFD0C0C</color>
 </resources>
