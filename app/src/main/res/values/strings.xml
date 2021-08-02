@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReservaCancha</string>
+    <string name="app_name">Reserva Cancha</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login_logo_description">loginLogo</string>
@@ -9,6 +9,7 @@
     <string name="button_logout">Logout</string>
     <string name="name">Name</string>
     <string name="phone_number">(+code) Phone number</string>
+    <string name="splash_logo">Splash logo</string>
 
 
 </resources>
