@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/im_ball1_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball2_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball3_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball4_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball5_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball6_white" android:duration="200"/>
+    <item android:drawable="@drawable/im_ball7_white" android:duration="200"/>
+</animation-list>
