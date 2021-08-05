@@ -4,20 +4,23 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_splash_screen.*
+import com.equipo13.reservacancha.databinding.ActivitySplashScreenBinding
 
 class SplashScreen : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        splashLogo.alpha = 0f
+        binding.imSplashLogo.alpha = 0f
 
-        splashLogo.animate().setDuration(2000).alpha(1f)
+        binding.imSplashLogo.animate().setDuration(2000).alpha(1f)
             .withStartAction {
-                (splashLogo.drawable as AnimationDrawable).start()
+                (binding.imSplashLogo.drawable as AnimationDrawable).start()
             }.withEndAction {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

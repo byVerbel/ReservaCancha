@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/loop_register_logo" />
 
     <EditText
-        android:id="@+id/registerName"
+        android:id="@+id/textRegisterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
 
     <EditText
-        android:id="@+id/registerEmail"
+        android:id="@+id/textRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -45,10 +45,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerName" />
+        app:layout_constraintTop_toBottomOf="@+id/textRegisterName" />
 
     <EditText
-        android:id="@+id/registerPassword"
+        android:id="@+id/textRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -60,10 +60,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/textRegisterEmail" />
 
     <EditText
-        android:id="@+id/registerPhoneNumber"
+        android:id="@+id/noRegisterPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -74,10 +74,10 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/textRegisterPassword" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/btRegisterRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -89,6 +89,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/noRegisterPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

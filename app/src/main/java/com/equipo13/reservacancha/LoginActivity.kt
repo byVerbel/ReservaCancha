@@ -3,72 +3,62 @@ package com.equipo13.reservacancha
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.bumptech.glide.Glide
+import com.equipo13.reservacancha.databinding.ActivityLoginBinding
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityLoginBinding
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-
-        // Get logo from the web
-        val logoView = loginLogo
-        Glide.with(this).load("https://i.dlpng.com/static/png/6603159_preview.png")
-            .into(logoView)
-
-        // Obtain the FirebaseAnalytics instance to test logEvents
-        /*val analytics = Firebase.analytics
-        val bundle = Bundle()
-        bundle.putString("message", "Integración con firebase completa")
-        analytics.logEvent("Initscreen", bundle)*/
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         login()
     }
 
+
     private fun login() {
         title = "Login"
 
-        val email = loginEmail.text
-        val password = loginPassword.text
+        val email = binding.textLoginEmail.text
+        val password = binding.textLoginPassword.text
 
 
-        loginButton.setOnClickListener{
+        binding.btLoginLogin.setOnClickListener{
             if (email.isNotEmpty() && password.isNotEmpty()){
                 FirebaseAuth.getInstance()
                     .signInWithEmailAndPassword(email.toString(), password.toString())
                     .addOnCompleteListener {
                             if (it.isSuccessful) {
+                                loginEvent()
                                 showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
                             } else {
-                                showToast("Usuario inválido", Toast.LENGTH_LONG)
+                                showToast(getString(R.string.invalid_user), Toast.LENGTH_LONG)
                             }
                         }
             } else  {
-                showToast("Ingrese datos", Toast.LENGTH_SHORT)
+                showToast(getString(R.string.missing_fields))
             }
         }
 
-        registerActivityButton.setOnClickListener{showRegister()}
+        binding.btLoginToRegister.setOnClickListener{showRegister()}
 
     }
 
-    /*private fun showAlert() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error autenticando el usuario")
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }*/
 
     private fun showToast(message:String, length:Int = Toast.LENGTH_SHORT){
         Toast.makeText(this, message, length).show()
     }
+
 
     private fun showHome(email: String, provider: ProviderType) {
         val homeIntent: Intent = Intent(this, HomeActivity::class.java).apply{
@@ -78,8 +68,18 @@ class LoginActivity : AppCompatActivity() {
         startActivity(homeIntent)
     }
 
+
     private fun showRegister() {
         val registerIntent = Intent(this, RegisterActivity::class.java)
         startActivity(registerIntent)
     }
+
+
+    private fun loginEvent(){
+        firebaseAnalytics= Firebase.analytics
+        val bundle = Bundle()
+        bundle.putString("message", "Login to app")
+        firebaseAnalytics.logEvent("login", bundle)
+    }
+
 }

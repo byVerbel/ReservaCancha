@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Reserva Cancha</string>
+    <string name="user_email">User email</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login_logo_description">loginLogo</string>
@@ -10,6 +11,9 @@
     <string name="name">Name</string>
     <string name="phone_number">(+code) Phone number</string>
     <string name="splash_logo">Splash logo</string>
-
+    <string name="invalid_register">Invalid Register</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="missing_fields">Please fill all fields</string>
+    <string name="invalid_user">Invalid User</string>
 
 </resources>
