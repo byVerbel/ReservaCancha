@@ -2,18 +2,21 @@
     <string name="app_name">Reserva Cancha</string>
     <string name="user_email">User email</string>
     <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
     <string name="password">Password</string>
     <string name="login_logo_description">loginLogo</string>
     <string name="register_logo_description">registerLogo</string>
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
     <string name="button_logout">Logout</string>
-    <string name="name">Name</string>
     <string name="phone_number">(+code) Phone number</string>
     <string name="splash_logo">Splash logo</string>
     <string name="invalid_register">Invalid Register</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="missing_fields">Please fill all fields</string>
     <string name="invalid_user">Invalid User</string>
+    <string name="db_register_fail">Failed to upload data</string>
+    <string name="remember_me">Remember me</string>
 
 </resources>

@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/loop_register_logo" />
 
     <EditText
-        android:id="@+id/textRegisterName"
+        android:id="@+id/tvRegisterName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/registerLogo" />
 
     <EditText
-        android:id="@+id/textRegisterEmail"
+        android:id="@+id/tvRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -45,10 +45,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRegisterName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRegisterName" />
 
     <EditText
-        android:id="@+id/textRegisterPassword"
+        android:id="@+id/tvRegisterPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRegisterEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRegisterEmail" />
 
     <EditText
         android:id="@+id/noRegisterPhone"
@@ -74,7 +74,7 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRegisterPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRegisterPassword" />
 
     <Button
         android:id="@+id/btRegisterRegister"

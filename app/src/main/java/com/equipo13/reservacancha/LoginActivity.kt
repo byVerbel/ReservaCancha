@@ -1,20 +1,25 @@
 package com.equipo13.reservacancha
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.equipo13.reservacancha.common.toEditable
 import com.equipo13.reservacancha.databinding.ActivityLoginBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+    private lateinit var mAuth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,15 +27,32 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        login()
+        // Instance Firebase & Shared Preferences
+        mAuth = Firebase.auth
+        val sp = getSharedPreferences("login_prefs", Context.MODE_PRIVATE)
+
+        checkLogin(sp)
+
+        login(sp)
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.tvLoginEmail.requestFocus()
+    }
 
-    private fun login() {
+    override fun onStop() {
+        super.onStop()
+        binding.tvLoginEmail.text.clear()
+        binding.tvLoginPassword.text.clear()
+    }
+
+    // Login User with remember me option
+    private fun login(sp: SharedPreferences) {
         title = "Login"
 
-        val email = binding.textLoginEmail.text
-        val password = binding.textLoginPassword.text
+        val email = binding.tvLoginEmail.text
+        val password = binding.tvLoginPassword.text
 
 
         binding.btLoginLogin.setOnClickListener{
@@ -38,13 +60,16 @@ class LoginActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance()
                     .signInWithEmailAndPassword(email.toString(), password.toString())
                     .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                loginEvent()
-                                showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
-                            } else {
-                                showToast(getString(R.string.invalid_user), Toast.LENGTH_LONG)
-                            }
+                        if (it.isSuccessful) {
+                            val id = it.result?.user?.uid?: ""
+                            rememberLogin(sp, id, email.toString())
+                            showHome(id, ProviderType.BASIC)
+                            loginEvent()
+                            finish()
+                        } else {
+                            showToast(getString(R.string.invalid_user), Toast.LENGTH_LONG)
                         }
+                    }
             } else  {
                 showToast(getString(R.string.missing_fields))
             }
@@ -54,26 +79,57 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    private fun rememberLogin(sp: SharedPreferences, id: String, email: String){
+        val checkBox = binding.cbLogin
+        with(sp.edit()){
+            putString("id", id)
+            putString("email", email)
+            putBoolean("active", true)
+            apply()
+        }
 
+        if (checkBox.isChecked){
+            with(sp.edit()){
+                putBoolean("remember", true)
+                apply()
+            }
+        } else {
+            with(sp.edit()) {
+                putBoolean("remember", false)
+                apply()
+            }
+        }
+    }
+
+    private fun checkLogin(sp: SharedPreferences){
+        if (sp.getBoolean("active",false)){
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        } else {
+            if (sp.getBoolean("remember", false)){
+                val email = sp.getString("email", "").toEditable()
+                binding.tvLoginEmail.text = email
+            }
+        }
+    }
+
+    // Other private functions
     private fun showToast(message:String, length:Int = Toast.LENGTH_SHORT){
         Toast.makeText(this, message, length).show()
     }
 
-
-    private fun showHome(email: String, provider: ProviderType) {
+    private fun showHome(id: String, provider: ProviderType) {
         val homeIntent: Intent = Intent(this, HomeActivity::class.java).apply{
-            putExtra("email", email)
+            putExtra("id", id)
             putExtra("provider", provider.name)
         }
         startActivity(homeIntent)
     }
 
-
     private fun showRegister() {
         val registerIntent = Intent(this, RegisterActivity::class.java)
         startActivity(registerIntent)
     }
-
 
     private fun loginEvent(){
         firebaseAnalytics= Firebase.analytics

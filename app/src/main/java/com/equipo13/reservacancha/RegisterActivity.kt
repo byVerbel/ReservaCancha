@@ -8,45 +8,75 @@ import android.util.Patterns
 import android.widget.Toast
 import com.equipo13.reservacancha.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+
+    private lateinit var db: DatabaseReference
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadLogo()
+        // Instance Firebase
+        auth = Firebase.auth
+        db = Firebase.database.reference
 
+        // Execute activity functions
+        loadLogo()
         register()
     }
 
-
+    // Register User
     private fun register(){
         title = "Register"
 
-        val name = binding.textRegisterName.text
-        val email = binding.textRegisterEmail.text
-        val password = binding.textRegisterPassword.text
+        val name = binding.tvRegisterName.text
+        val email = binding.tvRegisterEmail.text
+        val password = binding.tvRegisterPassword.text
         val phone = binding.noRegisterPhone.text
 
         fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
         binding.btRegisterRegister.setOnClickListener{
+
             if (email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && phone.isNotEmpty()){
+
                 if (email.toString().isValidEmail()){
 
-                    FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email.toString(),password.toString())
-                        .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    showHome(it.result?.user?.email ?:"", ProviderType.BASIC)
-                                } else {
-                                    showToast(getString(R.string.invalid_register), Toast.LENGTH_LONG)
+                    auth.createUserWithEmailAndPassword(email.toString(),password.toString())
+                        .addOnCompleteListener { task1 ->
+                            if (task1.isSuccessful) {
+                                val id = task1.result?.user?.uid?: ""
+
+                                val map: Map <String,String> = mapOf(
+                                    "name" to name.toString(),
+                                    "email" to email.toString(),
+                                    "password" to password.toString(),
+                                    "phone" to phone.toString()
+                                )
+
+                                db.child("Users").child(id).setValue(map).addOnCompleteListener { task2 ->
+                                    if(task2.isSuccessful){
+                                        showLogin()
+                                        finish()
+                                    } else {
+                                        showToast(getString(R.string.db_register_fail))
+                                    }
                                 }
+
+                            } else {
+                                showToast(getString(R.string.invalid_register), Toast.LENGTH_LONG)
                             }
+                        }
                 } else {
 
                     showToast(getString(R.string.invalid_email), Toast.LENGTH_LONG)
@@ -64,11 +94,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
-    private fun showHome(email: String, provider: ProviderType) {
-        val homeIntent: Intent = Intent(this, HomeActivity::class.java).apply{
-            putExtra("email", email)
-            putExtra("provider", provider.name)
-        }
+    private fun showLogin() {
+        val homeIntent: Intent = Intent(this, LoginActivity::class.java)
         startActivity(homeIntent)
     }
 
