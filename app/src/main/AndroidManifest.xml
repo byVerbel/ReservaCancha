@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReservaCancha">
-        <activity android:name=".SplashScreen">
+        <activity android:name=".views.util.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".HomeActivity"/>
+        <activity android:name=".views.auth.LoginActivity"/>
+        <activity android:name=".views.auth.RegisterActivity"/>
+        <activity android:name=".views.user.UserActivity"/>
     </application>
 
 </manifest>

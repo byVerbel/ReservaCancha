@@ -1,10 +1,11 @@
-package com.equipo13.reservacancha
+package com.equipo13.reservacancha.views.util
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.equipo13.reservacancha.databinding.ActivitySplashScreenBinding
+import com.equipo13.reservacancha.views.auth.LoginActivity
 
 class SplashScreen : AppCompatActivity() {
 

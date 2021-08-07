@@ -1,4 +1,4 @@
-package com.equipo13.reservacancha
+package com.equipo13.reservacancha.views.auth
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import com.equipo13.reservacancha.R
 import com.equipo13.reservacancha.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -67,7 +68,6 @@ class RegisterActivity : AppCompatActivity() {
                                 db.child("Users").child(id).setValue(map).addOnCompleteListener { task2 ->
                                     if(task2.isSuccessful){
                                         showLogin()
-                                        finish()
                                     } else {
                                         showToast(getString(R.string.db_register_fail))
                                     }
@@ -97,6 +97,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun showLogin() {
         val homeIntent: Intent = Intent(this, LoginActivity::class.java)
         startActivity(homeIntent)
+        finish()
     }
 
 

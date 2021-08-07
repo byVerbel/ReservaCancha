@@ -1,4 +1,4 @@
-package com.equipo13.reservacancha
+package com.equipo13.reservacancha.views.auth
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.equipo13.reservacancha.views.user.ProviderType
+import com.equipo13.reservacancha.R
+import com.equipo13.reservacancha.views.user.UserActivity
 import com.equipo13.reservacancha.common.toEditable
 import com.equipo13.reservacancha.databinding.ActivityLoginBinding
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -63,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             val id = it.result?.user?.uid?: ""
                             rememberLogin(sp, id, email.toString())
-                            showHome(id, ProviderType.BASIC)
+                            showUser(id, ProviderType.BASIC)
                             loginEvent()
                             finish()
                         } else {
@@ -103,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkLogin(sp: SharedPreferences){
         if (sp.getBoolean("active",false)){
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, UserActivity::class.java))
             finish()
         } else {
             if (sp.getBoolean("remember", false)){
@@ -118,8 +121,8 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, message, length).show()
     }
 
-    private fun showHome(id: String, provider: ProviderType) {
-        val homeIntent: Intent = Intent(this, HomeActivity::class.java).apply{
+    private fun showUser(id: String, provider: ProviderType) {
+        val homeIntent: Intent = Intent(this, UserActivity::class.java).apply{
             putExtra("id", id)
             putExtra("provider", provider.name)
         }
@@ -129,6 +132,7 @@ class LoginActivity : AppCompatActivity() {
     private fun showRegister() {
         val registerIntent = Intent(this, RegisterActivity::class.java)
         startActivity(registerIntent)
+        finish()
     }
 
     private fun loginEvent(){
