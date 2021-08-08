@@ -1,9 +1,9 @@
 package com.equipo13.reservacancha.views.util
 
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.equipo13.reservacancha.common.ImageUtil
 import com.equipo13.reservacancha.databinding.ActivitySplashScreenBinding
 import com.equipo13.reservacancha.views.auth.LoginActivity
 
@@ -21,7 +21,7 @@ class SplashScreen : AppCompatActivity() {
 
         binding.imSplashLogo.animate().setDuration(2000).alpha(1f)
             .withStartAction {
-                (binding.imSplashLogo.drawable as AnimationDrawable).start()
+                ImageUtil.startVectorLoop(binding.imSplashLogo.drawable)
             }.withEndAction {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

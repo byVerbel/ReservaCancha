@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserActivity"
+    tools:context=".views.user.UserActivity"
     android:background="#050408">
 
     <TextView
@@ -50,18 +50,33 @@
         app:layout_constraintTop_toBottomOf="@+id/tvHomePhone"/>
 
     <Button
-        android:id="@+id/btHomeLogout"
+        android:id="@+id/btShowCourts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_rounded_logout"
-        android:text="@string/button_logout"
+        android:backgroundTint="@color/teal_700"
+        android:text="@string/show_courts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHomeEmail" />
+
+    <Button
+        android:id="@+id/btHomeLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/button_rounded_logout"
+        android:text="@string/button_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btShowCourts" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

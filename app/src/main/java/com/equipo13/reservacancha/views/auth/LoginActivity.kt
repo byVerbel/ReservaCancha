@@ -5,22 +5,21 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.equipo13.reservacancha.views.user.ProviderType
 import com.equipo13.reservacancha.R
+import com.equipo13.reservacancha.common.FirebaseUtil
+import com.equipo13.reservacancha.common.openActivity
+import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.views.user.UserActivity
 import com.equipo13.reservacancha.common.toEditable
 import com.equipo13.reservacancha.databinding.ActivityLoginBinding
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var binding: ActivityLoginBinding
 
     private lateinit var mAuth: FirebaseAuth
 
@@ -66,11 +65,16 @@ class LoginActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             val id = it.result?.user?.uid?: ""
                             rememberLogin(sp, id, email.toString())
-                            showUser(id, ProviderType.BASIC)
-                            loginEvent()
+                            FirebaseUtil.firebaseAnalyticsEvent("login"){
+                                putString("message", "Login to app")
+                            }
+                            openActivity(UserActivity::class.java){
+                                putString("id", id)
+                                putString("provider", ProviderType.BASIC.name)
+                            }
                             finish()
                         } else {
-                            showToast(getString(R.string.invalid_user), Toast.LENGTH_LONG)
+                            showToast(getString(R.string.invalid_user))
                         }
                     }
             } else  {
@@ -78,7 +82,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.btLoginToRegister.setOnClickListener{showRegister()}
+        binding.btLoginToRegister.setOnClickListener{
+            openActivity(RegisterActivity::class.java)
+            finish()
+        }
 
     }
 
@@ -114,32 +121,6 @@ class LoginActivity : AppCompatActivity() {
                 binding.tvLoginEmail.text = email
             }
         }
-    }
-
-    // Other private functions
-    private fun showToast(message:String, length:Int = Toast.LENGTH_SHORT){
-        Toast.makeText(this, message, length).show()
-    }
-
-    private fun showUser(id: String, provider: ProviderType) {
-        val homeIntent: Intent = Intent(this, UserActivity::class.java).apply{
-            putExtra("id", id)
-            putExtra("provider", provider.name)
-        }
-        startActivity(homeIntent)
-    }
-
-    private fun showRegister() {
-        val registerIntent = Intent(this, RegisterActivity::class.java)
-        startActivity(registerIntent)
-        finish()
-    }
-
-    private fun loginEvent(){
-        firebaseAnalytics= Firebase.analytics
-        val bundle = Bundle()
-        bundle.putString("message", "Login to app")
-        firebaseAnalytics.logEvent("login", bundle)
     }
 
 }

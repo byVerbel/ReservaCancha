@@ -18,5 +18,9 @@
     <string name="invalid_user">Invalid User</string>
     <string name="db_register_fail">Failed to upload data</string>
     <string name="remember_me">Remember me</string>
+    <string name="court_image">Court image</string>
+    <string name="show_courts">Show Courts</string>
+    <string name="court_snapshot_fail">Court does not exist or is null</string>
+    <string name="court_snapshot_call_fail">Loading error</string>
 
 </resources>

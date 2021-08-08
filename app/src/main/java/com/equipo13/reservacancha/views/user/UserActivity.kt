@@ -6,8 +6,10 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.equipo13.reservacancha.common.openActivity
 import com.equipo13.reservacancha.databinding.ActivityUserBinding
 import com.equipo13.reservacancha.views.auth.LoginActivity
+import com.equipo13.reservacancha.views.home.CourtsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -74,6 +76,8 @@ class UserActivity : AppCompatActivity() {
 
         db.child("Users").child(id).addValueEventListener(postEvent)
 
+        binding.btShowCourts.setOnClickListener { openActivity(CourtsActivity::class.java) }
+
         binding.btHomeLogout.setOnClickListener {logOut(sp)}
     }
 
@@ -87,4 +91,5 @@ class UserActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
+
 }

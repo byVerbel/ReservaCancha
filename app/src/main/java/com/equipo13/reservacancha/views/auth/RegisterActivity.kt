@@ -1,12 +1,13 @@
 package com.equipo13.reservacancha.views.auth
 
-import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import com.equipo13.reservacancha.R
+import com.equipo13.reservacancha.common.ImageUtil
+import com.equipo13.reservacancha.common.openActivity
+import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -32,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
         db = Firebase.database.reference
 
         // Execute activity functions
-        loadLogo()
+        ImageUtil.startVectorLoop(binding.registerLogo.drawable)
         register()
     }
 
@@ -67,7 +68,8 @@ class RegisterActivity : AppCompatActivity() {
 
                                 db.child("Users").child(id).setValue(map).addOnCompleteListener { task2 ->
                                     if(task2.isSuccessful){
-                                        showLogin()
+                                        openActivity(LoginActivity::class.java)
+                                        finish()
                                     } else {
                                         showToast(getString(R.string.db_register_fail))
                                     }
@@ -86,22 +88,5 @@ class RegisterActivity : AppCompatActivity() {
                 showToast(getString(R.string.missing_fields))
             }
         }
-    }
-
-
-    private fun showToast(message:String, length:Int = Toast.LENGTH_SHORT){
-        Toast.makeText(this, message, length).show()
-    }
-
-
-    private fun showLogin() {
-        val homeIntent: Intent = Intent(this, LoginActivity::class.java)
-        startActivity(homeIntent)
-        finish()
-    }
-
-
-    private fun loadLogo(){
-        (binding.registerLogo.drawable as AnimationDrawable).start()
     }
 }
