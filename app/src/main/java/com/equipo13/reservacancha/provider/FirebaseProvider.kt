@@ -1,20 +1,18 @@
 package com.equipo13.reservacancha.provider
 
-import android.content.Context
-import com.equipo13.reservacancha.R
-import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.model.CourtModel
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
 enum class FirebaseRDBProvider (val key: String) {
     // Schemes
     USERS("Users"), COURTS("Courts"),
 
     // Shared
-    ID("id"), NAME("name"), PHONE("phone"), IMAGE("image"),
-
-    // Users
-    EMAIL("email"),
+    ID("id"),
+    NAME("name"), PHONE("phone"), IMAGE("image"), EMAIL("email"),
 
     // Courts
     CITY("city"), STATE("state"), ADDRESS("address")
@@ -22,27 +20,28 @@ enum class FirebaseRDBProvider (val key: String) {
 
 object FirebaseRDB {
 
-    private val usersRef = FirebaseDatabase.getInstance().getReference(FirebaseRDBProvider.USERS.key)
-    private val courtsRef = FirebaseDatabase.getInstance().getReference(FirebaseRDBProvider.COURTS.key)
+    private lateinit var courtsRef: DatabaseReference
+    private lateinit var usersRef: DatabaseReference
 
-    fun court(context: Context, courtId:String): CourtModel{
-        var retrievedCourt = CourtModel()
+    fun getCourts(courtMutableList: MutableList<CourtModel>, success: () -> Unit, failure: () -> Unit){
+        courtsRef = Firebase.database.reference.child(FirebaseRDBProvider.COURTS.key)
 
-        courtsRef.child(courtId).get().addOnSuccessListener { snapshot ->
-            if (snapshot.exists() && snapshot != null) {
-                val name = snapshot.child(FirebaseRDBProvider.NAME.key).value?.toString()
-                val city = snapshot.child(FirebaseRDBProvider.CITY.key).value?.toString()
-                val address = snapshot.child(FirebaseRDBProvider.ADDRESS.key).value?.toString()
-                val image = snapshot.child(FirebaseRDBProvider.IMAGE.key).value?.toString()
-
-                retrievedCourt = CourtModel(name, city, image, address)
-            } else {
-                context.showToast(context.getString(R.string.court_snapshot_fail))
+        courtsRef.addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists() && snapshot.value != null){
+                    for (courtSnapshot in snapshot.children){
+                        courtSnapshot.getValue<CourtModel>()?.let { dbCourt ->
+                            courtMutableList.add(dbCourt)
+                        }
+                    }
+                    success()
+                }
             }
-        }.addOnFailureListener {
-            context.showToast(context.getString(R.string.court_snapshot_call_fail))
-        }
 
-        return retrievedCourt
+            override fun onCancelled(error: DatabaseError) {
+                failure()
+            }
+
+        })
     }
 }

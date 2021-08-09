@@ -1,6 +1,6 @@
 package com.equipo13.reservacancha.model
 
-data class CourtModel(
+data class  CourtModel(
     val name:String? = null,
     val city:String? = null,
     val image:String? = null,
