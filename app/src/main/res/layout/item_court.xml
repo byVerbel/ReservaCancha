@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:maxHeight="150dp"
     android:padding="10dp"
+    android:layout_marginTop="15dp"
     android:background="@color/black">
 
     <ImageView
@@ -14,7 +15,8 @@
         android:layout_height="130dp"
         android:contentDescription="@string/court_image"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tvCourtName"

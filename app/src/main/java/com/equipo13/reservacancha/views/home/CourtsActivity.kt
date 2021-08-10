@@ -31,7 +31,6 @@ class CourtsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvCourts.layoutManager = LinearLayoutManager(this)
-        binding.rvCourts.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         db = Firebase.database.reference
 

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.equipo13.reservacancha.R
+import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ItemCourtBinding
 import com.equipo13.reservacancha.model.CourtModel
 import com.squareup.picasso.Picasso
@@ -27,11 +28,17 @@ class CourtAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapt
         private val binding = ItemCourtBinding.bind(view)
 
         fun render (court: CourtModel){
-            binding.tvCourtName.text = court.name.toString()
-            binding.tvCourtCity.text = court.city.toString()
-            binding.tvCourtAddress.text = court.address.toString()
+            val (name, city, imageUrl, address) = court
 
-            Picasso.get().load(court.image.toString()).into(binding.ivCourt)
+            binding.tvCourtName.text = name
+            binding.tvCourtCity.text = city
+            binding.tvCourtAddress.text = address
+
+            Picasso.get().load(imageUrl).into(binding.ivCourt)
+
+            binding.root.setOnClickListener {
+                binding.root.context.showToast("Esta cancha es $name")
+            }
 
         }
 
