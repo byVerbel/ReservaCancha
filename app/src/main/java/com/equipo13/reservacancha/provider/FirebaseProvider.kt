@@ -23,14 +23,15 @@ object FirebaseRDB {
     private lateinit var courtsRef: DatabaseReference
     private lateinit var usersRef: DatabaseReference
 
-    fun getCourts(courtMutableList: MutableList<CourtModel>, success: () -> Unit, failure: () -> Unit){
+    fun getCourts(courtMutableList: MutableList<CourtModel>, success: () -> Unit, failure: (message: String) -> Unit){
         courtsRef = Firebase.database.reference.child(FirebaseRDBProvider.COURTS.key)
 
         courtsRef.addValueEventListener( object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists() && snapshot.value != null){
-                    for (courtSnapshot in snapshot.children){
-                        courtSnapshot.getValue<CourtModel>()?.let { dbCourt ->
+            override fun onDataChange(courtsSnapshot: DataSnapshot) {
+                if (courtsSnapshot.exists() && courtsSnapshot.value != null){
+                    for (court in courtsSnapshot.children){
+                        court.getValue<CourtModel>()?.let { dbCourt ->
+                            dbCourt.id = court.key // This has to change when I remake the DB
                             courtMutableList.add(dbCourt)
                         }
                     }
@@ -39,7 +40,7 @@ object FirebaseRDB {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                failure()
+                failure("Failed to load courts")
             }
 
         })

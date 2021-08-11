@@ -5,25 +5,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.equipo13.reservacancha.R
-import com.equipo13.reservacancha.common.showToast
+import com.equipo13.reservacancha.common.openActivity
 import com.equipo13.reservacancha.databinding.ItemCourtBinding
 import com.equipo13.reservacancha.model.CourtModel
+import com.equipo13.reservacancha.views.court.CourtActivity
 import com.squareup.picasso.Picasso
 
-class CourtAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapter<CourtAdapter.CourtHolder>(){
+class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapter<CourtsAdapter.CourtsHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourtHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourtsHolder {
         val itemView = LayoutInflater.from(parent.context)
-        return CourtHolder(itemView.inflate(R.layout.item_court, parent, false))
+        return CourtsHolder(itemView.inflate(R.layout.item_court, parent, false))
     }
 
-    override fun onBindViewHolder(holder: CourtHolder, position: Int) {
+    override fun onBindViewHolder(holder: CourtsHolder, position: Int) {
         holder.render(courtList[position])
     }
 
     override fun getItemCount(): Int = courtList.size
 
-    class CourtHolder(view: View) : RecyclerView.ViewHolder(view){
+    class CourtsHolder(view: View) : RecyclerView.ViewHolder(view){
 
         private val binding = ItemCourtBinding.bind(view)
 
@@ -37,7 +38,9 @@ class CourtAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapt
             Picasso.get().load(imageUrl).into(binding.ivCourt)
 
             binding.root.setOnClickListener {
-                binding.root.context.showToast("Esta cancha es $name")
+                binding.root.context.openActivity(CourtActivity::class.java){
+                    putParcelable("courtInfo", court)
+                }
             }
 
         }

@@ -2,19 +2,13 @@ package com.equipo13.reservacancha.views.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ActivityCourtsBinding
 import com.equipo13.reservacancha.model.CourtModel
 import com.equipo13.reservacancha.provider.FirebaseRDB
-import com.equipo13.reservacancha.provider.FirebaseRDBProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class CourtsActivity : AppCompatActivity() {
@@ -37,9 +31,9 @@ class CourtsActivity : AppCompatActivity() {
         courts = mutableListOf()
 
         FirebaseRDB.getCourts(courts, {
-            binding.rvCourts.adapter = CourtAdapter(courts)
+            binding.rvCourts.adapter = CourtsAdapter(courts)
         }, {
-            showToast("Failed to load")
+            showToast(it)
         })
 
     }
