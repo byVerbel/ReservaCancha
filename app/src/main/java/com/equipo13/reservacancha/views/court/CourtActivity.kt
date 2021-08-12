@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.equipo13.reservacancha.databinding.ActivityCourtBinding
 import com.equipo13.reservacancha.model.CourtModel
+import com.squareup.picasso.Picasso
 
 class CourtActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class CourtActivity : AppCompatActivity() {
         val courtInfo = bundle?.getParcelable("courtInfo")?:CourtModel()
 
         binding.textView.text = courtInfo.name
+        Picasso.get().load(courtInfo.image)?.into(binding.ivCourt1)
 
     }
 }

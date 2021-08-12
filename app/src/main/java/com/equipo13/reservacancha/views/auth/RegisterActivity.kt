@@ -2,10 +2,10 @@ package com.equipo13.reservacancha.views.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Patterns
 import android.widget.Toast
 import com.equipo13.reservacancha.R
 import com.equipo13.reservacancha.common.ImageUtil
+import com.equipo13.reservacancha.common.isValidEmail
 import com.equipo13.reservacancha.common.openActivity
 import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ActivityRegisterBinding
@@ -46,7 +46,6 @@ class RegisterActivity : AppCompatActivity() {
         val password = binding.tvRegisterPassword.text
         val phone = binding.noRegisterPhone.text
 
-        fun CharSequence?.isValidEmail() = !isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
         binding.btRegisterRegister.setOnClickListener{
 

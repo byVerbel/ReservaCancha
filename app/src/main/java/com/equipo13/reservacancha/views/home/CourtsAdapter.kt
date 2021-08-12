@@ -35,7 +35,7 @@ class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adap
             binding.tvCourtCity.text = city
             binding.tvCourtAddress.text = address
 
-            Picasso.get().load(imageUrl).into(binding.ivCourt)
+            Picasso.get().load(imageUrl)?.into(binding.ivCourt)
 
             binding.root.setOnClickListener {
                 binding.root.context.openActivity(CourtActivity::class.java){
