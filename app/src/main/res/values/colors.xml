@@ -14,4 +14,6 @@
     <color name="dark_cyan">#FF002929</color>
     <color name="dark_green">#FF003D21</color>
     <color name="red">#FFFD0C0C</color>
+    <color name="beige">#fffdf7ed</color>
+    <color name="smokey_black">#ff120C02</color>
 </resources>

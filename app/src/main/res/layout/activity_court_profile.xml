@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.court.CourtActivity"
+    tools:context=".views.court.CourtProfileActivity"
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvCourtProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivCourt1"
+        android:id="@+id/ivCourtProfileLogo1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="32dp"
@@ -29,12 +29,12 @@
         android:contentDescription="@string/court_profile_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourtProfileName"
         tools:ignore="MissingConstraints"
         tools:src="@drawable/im_field" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCourtProfileSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -44,6 +44,17 @@
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivCourt1" />
+        app:layout_constraintTop_toBottomOf="@+id/ivCourtProfileLogo1" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCourtProfileSchedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourtProfileSchedule" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,10 +19,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-enum class ProviderType {
-    BASIC
-}
-
 class UserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserBinding

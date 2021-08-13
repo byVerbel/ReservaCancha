@@ -10,7 +10,7 @@
     android:background="@color/black">
 
     <ImageView
-        android:id="@+id/ivCourt"
+        android:id="@+id/ivCourtItemLogo"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:contentDescription="@string/court_image"
@@ -19,31 +19,31 @@
         android:scaleType="centerCrop"/>
 
     <TextView
-        android:id="@+id/tvCourtName"
+        android:id="@+id/tvCourtItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:textSize="25sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/ivCourt"
+        app:layout_constraintStart_toEndOf="@+id/ivCourtItemLogo"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Liverpool" />
 
     <TextView
-        android:id="@+id/tvCourtCity"
+        android:id="@+id/tvCourtItemCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17sp"
         android:textColor="@color/white"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintStart_toEndOf="@+id/ivCourt"
-        app:layout_constraintTop_toBottomOf="@id/tvCourtName"
+        app:layout_constraintStart_toEndOf="@+id/ivCourtItemLogo"
+        app:layout_constraintTop_toBottomOf="@id/tvCourtItemName"
         tools:text="Sincelejo" />
 
     <TextView
-        android:id="@+id/tvCourtAddress"
+        android:id="@+id/tvCourtItemAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"

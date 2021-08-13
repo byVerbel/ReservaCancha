@@ -33,7 +33,7 @@ class CourtsActivity : AppCompatActivity() {
         FirebaseRDB.getCourts(courts, {
             binding.rvCourts.adapter = CourtsAdapter(courts)
         }, {
-            showToast(it)
+            showToast(getString(it))
         })
 
     }

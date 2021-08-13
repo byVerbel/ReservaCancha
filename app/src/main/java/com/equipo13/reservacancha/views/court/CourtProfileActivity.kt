@@ -2,24 +2,24 @@ package com.equipo13.reservacancha.views.court
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.equipo13.reservacancha.databinding.ActivityCourtBinding
+import com.equipo13.reservacancha.databinding.ActivityCourtProfileBinding
 import com.equipo13.reservacancha.model.CourtModel
 import com.squareup.picasso.Picasso
 
-class CourtActivity : AppCompatActivity() {
+class CourtProfileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCourtBinding
+    private lateinit var binding: ActivityCourtProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCourtBinding.inflate(layoutInflater)
+        binding = ActivityCourtProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val bundle = intent.extras
         val courtInfo = bundle?.getParcelable("courtInfo")?:CourtModel()
 
-        binding.textView.text = courtInfo.name
-        Picasso.get().load(courtInfo.image)?.into(binding.ivCourt1)
+        binding.tvCourtProfileName.text = courtInfo.name
+        Picasso.get().load(courtInfo.image)?.into(binding.ivCourtProfileLogo1)
 
     }
 }

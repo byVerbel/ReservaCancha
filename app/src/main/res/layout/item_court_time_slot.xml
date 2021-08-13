@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/courtTimeSlot"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/beige">
+        
+        <TextView
+            android:id="@+id/tvTimeSlot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="9:00pm"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textColor="@color/smokey_black"/>
+
+        <TextView
+            android:id="@+id/tvTimeSlotState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="9:00pm"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            android:gravity="center_horizontal"
+            android:textColor="@color/smokey_black"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

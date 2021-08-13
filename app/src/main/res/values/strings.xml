@@ -24,5 +24,6 @@
     <string name="court_snapshot_call_fail">Loading error</string>
     <string name="court_profile_image">Court Profile Image</string>
     <string name="court_dates">Dates:</string>
+    <string name="courts_load_fail">Failed to load courts</string>
 
 </resources>

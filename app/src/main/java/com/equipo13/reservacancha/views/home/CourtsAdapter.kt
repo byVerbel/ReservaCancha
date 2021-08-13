@@ -8,7 +8,7 @@ import com.equipo13.reservacancha.R
 import com.equipo13.reservacancha.common.openActivity
 import com.equipo13.reservacancha.databinding.ItemCourtBinding
 import com.equipo13.reservacancha.model.CourtModel
-import com.equipo13.reservacancha.views.court.CourtActivity
+import com.equipo13.reservacancha.views.court.CourtProfileActivity
 import com.squareup.picasso.Picasso
 
 class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapter<CourtsAdapter.CourtsHolder>(){
@@ -31,14 +31,14 @@ class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adap
         fun render (court: CourtModel){
             val (name, city, imageUrl, address) = court
 
-            binding.tvCourtName.text = name
-            binding.tvCourtCity.text = city
-            binding.tvCourtAddress.text = address
+            binding.tvCourtItemName.text = name
+            binding.tvCourtItemCity.text = city
+            binding.tvCourtItemAddress.text = address
 
-            Picasso.get().load(imageUrl)?.into(binding.ivCourt)
+            Picasso.get().load(imageUrl)?.into(binding.ivCourtItemLogo)
 
             binding.root.setOnClickListener {
-                binding.root.context.openActivity(CourtActivity::class.java){
+                binding.root.context.openActivity(CourtProfileActivity::class.java){
                     putParcelable("courtInfo", court)
                 }
             }
