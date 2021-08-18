@@ -9,11 +9,19 @@
     <!-- MyColors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#FFFD0C0C</color>
+    <color name="purple">#ff7d64e6</color>
+    <color name="gray">#ff958FA8</color>
+    <color name="light_beige">#fffdf7ed</color>
+    <color name="light_magic_mint">#ffADFFD9</color>
+    <color name="light_blue">#ffA1C7CE</color>
+    <color name="light_coral">#ffFF7070</color>
+    <color name="light_gray">#fff0f0f0</color>
     <color name="dark_blue">#FF1A1529</color>
     <color name="dark_gray">#FF282929</color>
     <color name="dark_cyan">#FF002929</color>
     <color name="dark_green">#FF003D21</color>
-    <color name="red">#FFFD0C0C</color>
-    <color name="beige">#fffdf7ed</color>
-    <color name="smokey_black">#ff120C02</color>
+    <color name="dark_smokey_black">#ff120C02</color>
+    <color name="dark_dartmouth_green">#ff007A41</color>
+    <color name="dark_outer_space_crayola">#ff233E43</color>
 </resources>

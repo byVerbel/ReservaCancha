@@ -1,16 +1,12 @@
 package com.equipo13.reservacancha.provider
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.text.Editable
 import com.equipo13.reservacancha.R
 import com.equipo13.reservacancha.common.FirebaseUtil
 import com.equipo13.reservacancha.common.isValidEmail
-import com.equipo13.reservacancha.common.openActivity
-import com.equipo13.reservacancha.common.showToast
-
 import com.equipo13.reservacancha.model.CourtModel
-import com.equipo13.reservacancha.views.user.UserActivity
+import com.equipo13.reservacancha.model.TimeSlotModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -27,7 +23,7 @@ enum class FirebaseRDBProvider (val key: String) {
     NAME("name"), PHONE("phone"), IMAGE("image"), EMAIL("email"),
 
     // Courts
-    CITY("city"), STATE("state"), ADDRESS("address")
+    CITY("city"), STATE("state"), ADDRESS("address"), SCHEDULE("schedule")
 }
 
 enum class FirebaseRegisterType {
@@ -89,16 +85,16 @@ object FirebaseRDB {
                 firebaseAuth.createUserWithEmailAndPassword(email.toString(),password.toString())
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val id = task.result?.user?.uid?: ""
+                            val userId = task.result?.user?.uid?: ""
 
-                            val map: Map <String,String> = mapOf(
+                            val userDataMap: Map <String,String> = mapOf(
                                 "name" to name.toString(),
                                 "email" to email.toString(),
                                 "password" to password.toString(),
                                 "phone" to phone.toString()
                             )
 
-                            setUser(id, map, success, failure)
+                            setUser(userId, userDataMap, success, failure)
 
                         } else {
                             failure(R.string.invalid_register)
@@ -114,10 +110,10 @@ object FirebaseRDB {
         }
     }
 
-    private fun setUser(id : String, map : Map<String,String>, success: () -> Unit, failure: (message: Int) -> Unit){
+    private fun setUser(userId : String, userDataMap : Map<String,String>, success: () -> Unit, failure: (message: Int) -> Unit){
         databaseReference = Firebase.database.reference
 
-        databaseReference.child(FirebaseRDBProvider.USERS.key).child(id).setValue(map).addOnCompleteListener { task ->
+        databaseReference.child(FirebaseRDBProvider.USERS.key).child(userId).setValue(userDataMap).addOnCompleteListener { task ->
             if(task.isSuccessful){
                 success()
             } else {
@@ -127,10 +123,6 @@ object FirebaseRDB {
     }
 
     fun getUserBookings(){
-        TODO()
-    }
-
-    fun setUserBooking(){
         TODO()
     }
 
@@ -159,7 +151,48 @@ object FirebaseRDB {
         })
     }
 
-    fun getCourtSchedule(){
-        TODO()
+    fun getCourtSchedule(court: String, timeSlotList: MutableList<TimeSlotModel>, success: () -> Unit, failure: (message: Int) -> Unit){
+        databaseReference = Firebase.database.reference
+            .child(FirebaseRDBProvider.COURTS.key)
+            .child(court)
+            .child(FirebaseRDBProvider.SCHEDULE.key)
+
+        databaseReference.addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(scheduleSnapshot: DataSnapshot) {
+                if (scheduleSnapshot.exists() && scheduleSnapshot.value != null){
+                    for (timeSlot in scheduleSnapshot.children){
+                        timeSlot.getValue<Boolean>()?.let { status ->
+                            timeSlotList.add(TimeSlotModel(timeSlot.key, status))
+                        }
+                    }
+                    success()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                failure(R.string.court_schedule_load_failed)
+            }
+
+        })
+    }
+
+    fun setCourtBooking(courtId: String, scheduleMap: Map<String?, Boolean?>, success: () -> Unit, failure: (message: Int) -> Unit){
+        databaseReference = Firebase.database.reference.child(FirebaseRDBProvider.COURTS.key).child(courtId)
+
+        databaseReference.child(FirebaseRDBProvider.SCHEDULE.key).updateChildren(scheduleMap).addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                success()
+            } else {
+                failure(R.string.db_set_booking_fail)
+            }
+        }
+
+        /*setValue(scheduleMap).addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                success()
+            } else {
+                failure(R.string.db_set_booking_fail)
+            }
+        }*/
     }
 }

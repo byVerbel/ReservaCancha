@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/courtTimeSlot"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courtTimeSlot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardCornerRadius="4dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/beige">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    android:orientation="vertical"
+    android:padding="6dp"
+    android:background="@drawable/timeslot_check_selected"
+    android:layout_margin="2dp">
         
         <TextView
             android:id="@+id/tvTimeSlot"
@@ -22,18 +19,16 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center_horizontal"
-            android:textColor="@color/smokey_black"/>
+            android:textColor="@color/dark_smokey_black"/>
 
         <TextView
-            android:id="@+id/tvTimeSlotState"
+            android:id="@+id/tvTimeSlotStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="9:00pm"
+            tools:text="Available"
             android:textSize="15sp"
             android:textStyle="italic"
             android:gravity="center_horizontal"
-            android:textColor="@color/smokey_black"/>
+            android:textColor="@color/dark_smokey_black"/>
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -25,5 +25,10 @@
     <string name="court_profile_image">Court Profile Image</string>
     <string name="court_dates">Dates:</string>
     <string name="courts_load_fail">Failed to load courts</string>
+    <string name="court_status_available">Available</string>
+    <string name="court_status_occupied">Occupied</string>
+    <string name="court_status_missed">Missed</string>
+    <string name="court_schedule_load_failed">Failed to load schedule</string>
+    <string name="db_set_booking_fail">Failed to confirm reserve</string>
 
 </resources>

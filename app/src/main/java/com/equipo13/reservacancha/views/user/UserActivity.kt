@@ -74,7 +74,7 @@ class UserActivity : AppCompatActivity() {
 
         binding.btShowCourts.setOnClickListener { openActivity(CourtsActivity::class.java) }
 
-        binding.btHomeLogout.setOnClickListener {logOut(sp)}
+        binding.btHomeLogout.setOnClickListener { logOut(sp) }
     }
 
     private fun logOut(sp: SharedPreferences){
@@ -84,7 +84,7 @@ class UserActivity : AppCompatActivity() {
         }
         auth.signOut()
 
-        startActivity(Intent(this, LoginActivity::class.java))
+        openActivity(LoginActivity::class.java)
         finish()
     }
 

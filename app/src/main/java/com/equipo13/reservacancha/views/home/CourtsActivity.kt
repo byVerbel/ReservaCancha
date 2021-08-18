@@ -1,5 +1,6 @@
 package com.equipo13.reservacancha.views.home
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,27 +16,24 @@ class CourtsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCourtsBinding
 
-    private lateinit var db: DatabaseReference
-
-    private lateinit var courts: MutableList<CourtModel>
+    val courtsActivity : Activity = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCourtsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupAdapter()
+    }
+
+    private fun setupAdapter(){
         binding.rvCourts.layoutManager = LinearLayoutManager(this)
-
-        db = Firebase.database.reference
-
-        courts = mutableListOf()
-
+        val courts : MutableList<CourtModel> = mutableListOf()
         FirebaseRDB.getCourts(courts, {
             binding.rvCourts.adapter = CourtsAdapter(courts)
         }, {
             showToast(getString(it))
         })
-
     }
 
 }

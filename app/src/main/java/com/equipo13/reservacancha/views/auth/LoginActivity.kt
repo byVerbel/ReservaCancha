@@ -19,19 +19,16 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sp = getSharedPreferences("login_prefs", MODE_PRIVATE)
-
-        checkLogin(sp)
-        login(sp)
-
-        binding.btLoginToRegister.setOnClickListener{
-            openActivity(RegisterActivity::class.java)
-        }
+        login()
     }
 
     // Login User with remember me option
-    private fun login(sp: SharedPreferences) {
+    private fun login() {
         title = "Login"
+
+        val sp = getSharedPreferences("login_prefs", MODE_PRIVATE)
+
+        checkLogin(sp)
 
         val email = binding.tvLoginEmail.text
         val password = binding.tvLoginPassword.text
@@ -49,6 +46,10 @@ class LoginActivity : AppCompatActivity() {
                 {
                     showToast(getString(it))
                 })
+        }
+
+        binding.btLoginToRegister.setOnClickListener{
+            openActivity(RegisterActivity::class.java)
         }
     }
 

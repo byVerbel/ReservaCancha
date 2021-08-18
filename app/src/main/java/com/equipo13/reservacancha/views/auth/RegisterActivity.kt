@@ -18,7 +18,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Execute activity functions
-        ImageUtil.startVectorLoop(binding.registerLogo.drawable)
+        setupScreen()
         register()
     }
 
@@ -35,5 +35,9 @@ class RegisterActivity : AppCompatActivity() {
         binding.btRegisterRegister.setOnClickListener{
             FirebaseRDB.registerUser( name, email, password, phone, { finish() }, { showToast(getString(it)) } )
         }
+    }
+
+    private fun setupScreen(){
+        ImageUtil.startVectorLoop(binding.registerLogo.drawable)
     }
 }

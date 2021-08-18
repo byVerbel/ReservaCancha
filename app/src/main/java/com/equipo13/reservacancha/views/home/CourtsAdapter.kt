@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso
 class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adapter<CourtsAdapter.CourtsHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourtsHolder {
-        val itemView = LayoutInflater.from(parent.context)
-        return CourtsHolder(itemView.inflate(R.layout.item_court, parent, false))
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_court, parent, false)
+        return CourtsHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: CourtsHolder, position: Int) {
