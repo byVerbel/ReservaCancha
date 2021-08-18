@@ -33,6 +33,10 @@ class CourtProfileAdapter (private var schedule : MutableList<TimeSlotModel>) : 
             binding.tvTimeSlot.text = changeTimeFormat(timeSlot.time)
 
             if (checkMissed(timeSlot.time)) {
+                binding.tvTimeSlotStatus.text = binding.root.context.getString(R.string.court_status_missed)
+                binding.courtTimeSlot.background = ContextCompat.getDrawable(binding.root.context, R.drawable.timeslot_missed)
+            }
+            else {
                 binding.tvTimeSlotStatus.text = binding.root.context.getString(timeSlot.available())
                 if (timeSlot.status == false){
                     binding.courtTimeSlot.background = ContextCompat.getDrawable(binding.root.context, R.drawable.timeslot_occupied)
@@ -43,11 +47,6 @@ class CourtProfileAdapter (private var schedule : MutableList<TimeSlotModel>) : 
                         timeSlot.status = !it.isSelected
                     }
                 }
-
-            }
-            else {
-                binding.tvTimeSlotStatus.text = binding.root.context.getString(R.string.court_status_missed)
-                binding.courtTimeSlot.background = ContextCompat.getDrawable(binding.root.context, R.drawable.timeslot_missed)
             }
         }
 

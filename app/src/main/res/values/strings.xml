@@ -29,6 +29,9 @@
     <string name="court_status_occupied">Occupied</string>
     <string name="court_status_missed">Missed</string>
     <string name="court_schedule_load_failed">Failed to load schedule</string>
-    <string name="db_set_booking_fail">Failed to confirm reserve</string>
+    <string name="db_set_reservation_fail">Failed to confirm reserve</string>
+    <string name="court_reservation_confirm_message">Are you sure you want to make this reservation?</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="db_set_reserve_successful">Reserve successful</string>
 
 </resources>

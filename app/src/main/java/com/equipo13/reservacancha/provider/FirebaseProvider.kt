@@ -176,14 +176,14 @@ object FirebaseRDB {
         })
     }
 
-    fun setCourtBooking(courtId: String, scheduleMap: Map<String?, Boolean?>, success: () -> Unit, failure: (message: Int) -> Unit){
+    fun setCourtBooking(courtId: String, scheduleMap: Map<String?, Boolean?>, success: (message: Int) -> Unit, failure: (message: Int) -> Unit){
         databaseReference = Firebase.database.reference.child(FirebaseRDBProvider.COURTS.key).child(courtId)
 
         databaseReference.child(FirebaseRDBProvider.SCHEDULE.key).updateChildren(scheduleMap).addOnCompleteListener { task ->
             if(task.isSuccessful){
-                success()
+                success(R.string.db_set_reserve_successful)
             } else {
-                failure(R.string.db_set_booking_fail)
+                failure(R.string.db_set_reservation_fail)
             }
         }
 

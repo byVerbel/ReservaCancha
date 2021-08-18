@@ -1,8 +1,12 @@
 package com.equipo13.reservacancha.views.court
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
+import com.equipo13.reservacancha.R
 import com.equipo13.reservacancha.common.openActivity
 import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ActivityCourtProfileBinding
@@ -11,6 +15,9 @@ import com.equipo13.reservacancha.model.TimeSlotModel
 import com.equipo13.reservacancha.provider.FirebaseRDB
 import com.equipo13.reservacancha.views.home.CourtsActivity
 import com.equipo13.reservacancha.views.user.UserActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class CourtProfileActivity : AppCompatActivity() {
@@ -58,15 +65,26 @@ class CourtProfileActivity : AppCompatActivity() {
                 scheduleMap[slot.time] = slot.status
             }
 
-            FirebaseRDB.setCourtBooking(courtId, scheduleMap, {
-                CourtsActivity().courtsActivity.finish()
-                finish()
-            },{
-                showToast(getString(it))
-            })
-
-            //showToast("ScheduleMap 22:00: ${scheduleMap["22:00"]}")
-            //showToast("${scheduleMap.size}")
+            showAlertDialog(scheduleMap, courtId)
         }
+    }
+
+    private fun showAlertDialog(scheduleMap: Map<String?, Boolean?>, courtId: String){
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(getString(R.string.confirmation))
+            .setMessage(getString(R.string.court_reservation_confirm_message))
+            .setNegativeButton( "No") { _, _ -> }
+            .setPositiveButton( "Yes") { _, _ ->
+                FirebaseRDB.setCourtBooking(courtId, scheduleMap, {
+                    // Refresh activity
+                    showToast(getString(it))
+                    this.recreate()
+                },{
+                    showToast(getString(it))
+                })
+            }
+
+        dialog.show()
     }
 }
