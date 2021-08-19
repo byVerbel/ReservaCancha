@@ -23,7 +23,16 @@ class CourtsActivity : AppCompatActivity() {
         binding = ActivityCourtsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupAdapter()
+
+    }
+
+    override fun onRestart() {
+        super.onRestart()
     }
 
     private fun setupAdapter(){

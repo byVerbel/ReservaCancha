@@ -64,6 +64,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
 
+    // APIs
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+//    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+
     // Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -33,5 +33,13 @@
     <string name="court_reservation_confirm_message">Are you sure you want to make this reservation?</string>
     <string name="confirmation">Confirmation</string>
     <string name="db_set_reserve_successful">Reserve successful</string>
+    <string name="court_show_google_maps">Show court in GoogleMaps</string>
+    <string name="court_make_reserve">Reserve</string>
+    <string name="facebook">Facebook</string>
+    <string name="facebook_logo">Facebook Logo</string>
+
+<!--    Autenticación Facebook-->
+    <string name="facebook_app_id">944959689393777</string>
+    <string name="fb_login_protocol_scheme">fb944959689393777</string>
 
 </resources>

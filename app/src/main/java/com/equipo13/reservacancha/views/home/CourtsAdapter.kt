@@ -29,7 +29,7 @@ class CourtsAdapter(private val courtList: List<CourtModel>) : RecyclerView.Adap
         private val binding = ItemCourtBinding.bind(view)
 
         fun render (court: CourtModel){
-            val (name, city, imageUrl, address) = court
+            val (_, name, city, imageUrl, address) = court
 
             binding.tvCourtItemName.text = name
             binding.tvCourtItemCity.text = city

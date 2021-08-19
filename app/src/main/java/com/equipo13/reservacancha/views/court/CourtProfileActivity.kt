@@ -14,6 +14,7 @@ import com.equipo13.reservacancha.model.CourtModel
 import com.equipo13.reservacancha.model.TimeSlotModel
 import com.equipo13.reservacancha.provider.FirebaseRDB
 import com.equipo13.reservacancha.views.home.CourtsActivity
+import com.equipo13.reservacancha.views.maps.GoogleMapsActivity
 import com.equipo13.reservacancha.views.user.UserActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -40,6 +41,14 @@ class CourtProfileActivity : AppCompatActivity() {
     private fun setupProfile(court: CourtModel){
         binding.tvCourtProfileName.text = court.name
         Picasso.get().load(court.image)?.into(binding.ivCourtProfileLogo1)
+
+        binding.btShowMaps.setOnClickListener {
+            openActivity(GoogleMapsActivity::class.java){
+                putString("latitude", court.latitude)
+                putString("longitude", court.longitude)
+                putString("courtName", court.name)
+            }
+        }
     }
 
     private fun setupAdapter(courtId: String?) {
@@ -79,7 +88,7 @@ class CourtProfileActivity : AppCompatActivity() {
                 FirebaseRDB.setCourtBooking(courtId, scheduleMap, {
                     // Refresh activity
                     showToast(getString(it))
-                    this.recreate()
+                    finish()
                 },{
                     showToast(getString(it))
                 })
