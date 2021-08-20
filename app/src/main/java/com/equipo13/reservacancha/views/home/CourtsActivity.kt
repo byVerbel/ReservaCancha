@@ -16,30 +16,21 @@ class CourtsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCourtsBinding
 
-    val courtsActivity : Activity = this
+    companion object {
+        val courts : MutableList<CourtModel> = mutableListOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCourtsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-    }
-
-    override fun onResume() {
-        super.onResume()
         setupAdapter()
-
-    }
-
-    override fun onRestart() {
-        super.onRestart()
     }
 
     private fun setupAdapter(){
         binding.rvCourts.layoutManager = LinearLayoutManager(this)
-        val courts : MutableList<CourtModel> = mutableListOf()
         FirebaseRDB.getCourts(courts, {
-            binding.rvCourts.adapter = CourtsAdapter(courts)
+            binding.rvCourts.adapter = CourtsAdapter(courts.distinct()) // TODO("Esto no es efectivo")
         }, {
             showToast(getString(it))
         })

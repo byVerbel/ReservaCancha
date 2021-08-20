@@ -1,6 +1,5 @@
 package com.equipo13.reservacancha.views.court
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -13,12 +12,7 @@ import com.equipo13.reservacancha.databinding.ActivityCourtProfileBinding
 import com.equipo13.reservacancha.model.CourtModel
 import com.equipo13.reservacancha.model.TimeSlotModel
 import com.equipo13.reservacancha.provider.FirebaseRDB
-import com.equipo13.reservacancha.views.home.CourtsActivity
 import com.equipo13.reservacancha.views.maps.GoogleMapsActivity
-import com.equipo13.reservacancha.views.user.UserActivity
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class CourtProfileActivity : AppCompatActivity() {
@@ -56,7 +50,7 @@ class CourtProfileActivity : AppCompatActivity() {
         val schedule : MutableList<TimeSlotModel> = mutableListOf()
         FirebaseRDB.getCourtSchedule(courtId?:"", schedule,
             {
-                binding.rvCourtProfileSchedule.adapter = CourtProfileAdapter(schedule)
+                binding.rvCourtProfileSchedule.adapter = CourtProfileAdapter(schedule.distinct())
             },
             {
                 showToast(getString(it))
@@ -87,7 +81,7 @@ class CourtProfileActivity : AppCompatActivity() {
             .setPositiveButton( "Yes") { _, _ ->
                 FirebaseRDB.setCourtBooking(courtId, scheduleMap, {
                     // Refresh activity
-                    showToast(getString(it))
+                    showToast(getString(it), Toast.LENGTH_LONG)
                     finish()
                 },{
                     showToast(getString(it))

@@ -92,19 +92,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noRegisterPhone" />
 
-    <Button
-        android:id="@+id/btFacebookRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/button_rounded_login"
-        android:backgroundTint="@color/blue"
-        android:text="@string/facebook"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btRegisterRegister" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

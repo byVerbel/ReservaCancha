@@ -7,6 +7,21 @@
     android:background="@color/dark_blue"
     tools:context=".views.auth.LoginActivity">
 
+    <Button
+        android:id="@+id/btLoginFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/button_rounded_login"
+        android:backgroundTint="@color/blue"
+        android:text="@string/facebook"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLoginLogin" />
+
     <ImageView
         android:id="@+id/loginLogo"
         android:layout_width="350dp"
@@ -83,6 +98,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btLoginLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btLoginFacebook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

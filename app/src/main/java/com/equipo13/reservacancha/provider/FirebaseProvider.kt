@@ -7,6 +7,7 @@ import com.equipo13.reservacancha.common.FirebaseUtil
 import com.equipo13.reservacancha.common.isValidEmail
 import com.equipo13.reservacancha.model.CourtModel
 import com.equipo13.reservacancha.model.TimeSlotModel
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -26,7 +27,7 @@ enum class FirebaseRDBProvider (val key: String) {
     CITY("city"), STATE("state"), ADDRESS("address"), SCHEDULE("schedule")
 }
 
-enum class FirebaseRegisterType {
+enum class FirebaseLoginType {
     BASIC, GOOGLE, FACEBOOK
 }
 
@@ -35,13 +36,13 @@ object FirebaseRDB {
     private lateinit var databaseReference: DatabaseReference
     private lateinit var firebaseAuth: FirebaseAuth
 
-    // Users methods
+    // User methods
     fun loginUser(
         sp: SharedPreferences,
         email: Editable,
         password: Editable,
-        remember: (sp: SharedPreferences, id: String, email: String) -> Unit,
-        success: (id: String) -> Unit,
+        remember: (sp: SharedPreferences, id: String, email: String, provider: String) -> Unit,
+        success: (id: String, provider: String) -> Unit,
         failure: (message: Int) -> Unit
     )   {
         firebaseAuth = Firebase.auth
@@ -51,24 +52,55 @@ object FirebaseRDB {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         task.result?.user?.uid?.let { id ->
-                            remember(sp, id, email.toString())
+                            remember(sp, id, email.toString(), FirebaseLoginType.BASIC.name)
                             FirebaseUtil.firebaseAnalyticsEvent("login"){
-                                putString("message", "Login to app")
+                                putString("message", "Login with BASIC")
                             }
-                            success(id)
+                            success(id, FirebaseLoginType.BASIC.name)
                         }
 
                     } else {
-                        failure(R.string.invalid_user)
+                        failure(R.string.login_unregistered)
                     }
                 }
         } else  {
             failure(R.string.missing_fields)
         }
-
     }
 
-    fun registerUser(
+    fun loginFacebook(
+        credential: AuthCredential,
+        sp: SharedPreferences,
+        remember: (sp: SharedPreferences, id: String, email: String, provider: String) -> Unit,
+        success: (userId: String, provider: String) -> Unit,
+        failure: (message: Int) -> Unit
+    ){
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val userId = task.result?.user?.uid?:""
+                val userEmail = task.result?.user?.email?:""
+
+                val userDataMap = mapOf(
+                    "name" to "No name YET", // TODO("Get FB name")
+                    "email" to userEmail,
+                    "phone" to "No phone YET" // TODO("Get FB name")
+                )
+
+                setNewUserDb(userId, userDataMap, {}, failure)
+
+                remember(sp, userId, userEmail, FirebaseLoginType.FACEBOOK.name)
+                FirebaseUtil.firebaseAnalyticsEvent("login") {
+                    putString("message", "Login with FACEBOOK")
+                }
+                success(userEmail, FirebaseLoginType.FACEBOOK.name)
+            }
+            else{
+                failure(R.string.invalid_register)
+            }
+        }
+    }
+
+    fun registerBasic(
         name: Editable,
         email: Editable,
         password: Editable,
@@ -90,11 +122,10 @@ object FirebaseRDB {
                             val userDataMap: Map <String,String> = mapOf(
                                 "name" to name.toString(),
                                 "email" to email.toString(),
-                                "password" to password.toString(),
                                 "phone" to phone.toString()
                             )
 
-                            setUser(userId, userDataMap, success, failure)
+                            setNewUserDb(userId, userDataMap, success, failure)
 
                         } else {
                             failure(R.string.invalid_register)
@@ -110,7 +141,7 @@ object FirebaseRDB {
         }
     }
 
-    private fun setUser(userId : String, userDataMap : Map<String,String>, success: () -> Unit, failure: (message: Int) -> Unit){
+    private fun setNewUserDb(userId : String, userDataMap : Map<String,String>, success: () -> Unit, failure: (message: Int) -> Unit){
         databaseReference = Firebase.database.reference
 
         databaseReference.child(FirebaseRDBProvider.USERS.key).child(userId).setValue(userDataMap).addOnCompleteListener { task ->
@@ -122,6 +153,29 @@ object FirebaseRDB {
         }
     }
 
+    fun getUser(userId: String, success: (name:String, email:String, phone:String) -> Unit, failure: (message: Int) -> Unit){
+        databaseReference = Firebase.database.reference.child(FirebaseRDBProvider.USERS.key).child(userId)
+
+        databaseReference.addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(userSnapshot: DataSnapshot) {
+                if (userSnapshot.exists() && userSnapshot.value != null) {
+                    val name = userSnapshot.child("name").value?.toString()?:"No name found"
+                    val email = userSnapshot.child("email").value?.toString()?:"No email found"
+                    val phone = userSnapshot.child("phone").value?.toString()?:"No phone found"
+
+                    success(name, email, phone)
+                }
+                else {
+                    failure(R.string.register_null)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                failure(R.string.db_user_load_fail)
+            }
+
+        })
+    }
     fun getUserBookings(){
         TODO()
     }
@@ -186,13 +240,5 @@ object FirebaseRDB {
                 failure(R.string.db_set_reservation_fail)
             }
         }
-
-        /*setValue(scheduleMap).addOnCompleteListener { task ->
-            if(task.isSuccessful){
-                success()
-            } else {
-                failure(R.string.db_set_booking_fail)
-            }
-        }*/
     }
 }

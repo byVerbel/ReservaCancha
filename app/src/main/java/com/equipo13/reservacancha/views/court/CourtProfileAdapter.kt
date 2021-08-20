@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.equipo13.reservacancha.R
-import com.equipo13.reservacancha.common.showToast
 import com.equipo13.reservacancha.databinding.ItemCourtTimeSlotBinding
 import com.equipo13.reservacancha.model.TimeSlotModel
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class CourtProfileAdapter (private var schedule : MutableList<TimeSlotModel>) : RecyclerView.Adapter<CourtProfileAdapter.CourtScheduleHolder>() {
+class CourtProfileAdapter (private var schedule : List<TimeSlotModel>) : RecyclerView.Adapter<CourtProfileAdapter.CourtScheduleHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int ): CourtScheduleHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_court_time_slot, parent, false)

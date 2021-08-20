@@ -15,8 +15,8 @@
     <string name="invalid_register">Invalid Register</string>
     <string name="invalid_email">Invalid Email</string>
     <string name="missing_fields">Please fill all fields</string>
-    <string name="invalid_user">Invalid User</string>
-    <string name="db_register_fail">Failed to upload data</string>
+    <string name="login_unregistered">User not found in database</string>
+    <string name="db_register_fail">Failed to register user data</string>
     <string name="remember_me">Remember me</string>
     <string name="court_image">Court image</string>
     <string name="show_courts">Show Courts</string>
@@ -41,5 +41,7 @@
 <!--    Autenticación Facebook-->
     <string name="facebook_app_id">944959689393777</string>
     <string name="fb_login_protocol_scheme">fb944959689393777</string>
+    <string name="register_null">User: No information found</string>
+    <string name="db_user_load_fail">User: Failed to load user from database</string>
 
 </resources>
